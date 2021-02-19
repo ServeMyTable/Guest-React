@@ -1,0 +1,4 @@
+{
+    "MongoDB_Url" : "mongodb+srv://servemytable:**$SMT199899$**@cluster0.cgqev.mongodb.net/SMT?retryWrites=true&w=majority",
+    "Secret" : "ThisIsMyFuckingSecretOfGuest"
+}
