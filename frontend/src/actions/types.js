@@ -1,0 +1,16 @@
+export const AUTH_ERROR = 'AUTH_ERROR';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAIL = 'LOGIN_FAIL';
+export const USER_LOADED = 'USER_LOADED';
+export const PLACE_ORDER_SUCCESS = 'PLACE_ORDER_SUCCESS';
+export const PLACE_ORDER_FAIL = 'PLACE_ORDER_FAIL';
+export const SET_ERROR = 'SET_ERROR';
+export const REMOVE_ERROR = 'REMOVE_ERROR';
+export const ORDER_PLACED = 'ORDER_PLACED';
+export const ORDERS_LOADED = 'ORDERS_LOADED';
+export const ORDERS_LOADED_FAILED = 'ORDERS_LOADED_FAILED';
+export const LOGOUT = 'LOGOUT';
+export const SAVE_ORDERS = 'SAVE_ORDERS';
+export const SET_LOADING = 'SET_LOADING';
+export const REMOVE_LOADING = 'REMOVE_LOADING';
+export const SET_ORDERS = 'SET_ORDERS';
