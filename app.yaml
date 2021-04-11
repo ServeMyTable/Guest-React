@@ -1,5 +1,7 @@
 runtime: nodejs10
 
+service: api
+
 handlers:
   - url: /
     static_files: frontend/build/index.html
