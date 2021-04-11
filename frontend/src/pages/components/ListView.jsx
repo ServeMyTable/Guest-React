@@ -1,11 +1,11 @@
 import React from 'react';
-import { Accordion, AccordionSummary, Box, Typography } from '@material-ui/core';
+import { Accordion, AccordionSummary, Box, Typography, Divider } from '@material-ui/core';
 import { connect } from 'react-redux';
 import DishComponent from './DishComponent';
 import OrderSummary from './OrderSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-function ListView({Dishes,Categories,search,filteredCategories}){
+function ListView({Dishes,Categories,search,filteredCategories,checkedVeg}){
 
     const [orderCart,setCart] = React.useState([]);
 
@@ -62,27 +62,61 @@ function ListView({Dishes,Categories,search,filteredCategories}){
         }
     }
 
-    function getDishes(category){
+    function getDishesVeg(category){
         const lst = [];
         for(var i = 0 ; i< Dishes.length ; i++){
-            if(Dishes[i].Category === category){
-                Dishes[i].DishName.indexOf(search) > -1 &&
+            if(
+                Dishes[i].tags[0].includes("Veg") &&
+                Dishes[i].Category === category && 
+                Dishes[i].DishName.indexOf(search) > -1 
+                ){
                 lst.push(
                     <Box style={{marginLeft:20}}>
                     <DishComponent
                         name = {Dishes[i].DishName}
                         price = {Dishes[i].Price}
-                        tags = {Dishes[i].tags}
+                        tags = {Dishes[i].tags[0]}
                         desc = {Dishes[i].Description}
+                        ImageUrl={Dishes[i].ImageUrl ? Dishes[i].ImageUrl : null}
                         handleAddFunc = {handleAddFunc}
                         id={i}
                         cart={orderCart}
                     />
+                    <Divider style={{marginBottom:10}}/>
                     </Box>
                 );
             }
         }
         return lst;
+    }
+
+    function getDishes(category){
+
+        const lst = [];
+        for(var i = 0 ; i< Dishes.length ; i++){
+            if(
+                Dishes[i].Category === category && 
+                Dishes[i].DishName.indexOf(search) > -1 
+                ){
+                lst.push(
+                    <Box style={{marginLeft:20}}>
+                    <DishComponent
+                        name = {Dishes[i].DishName}
+                        price = {Dishes[i].Price}
+                        tags = {Dishes[i].tags[0]}
+                        desc = {Dishes[i].Description}
+                        ImageUrl={Dishes[i].ImageUrl ? Dishes[i].ImageUrl : null}
+                        handleAddFunc = {handleAddFunc}
+                        id={i}
+                        cart={orderCart}
+                    />
+                    <Divider style={{marginBottom:10}}/>
+                    </Box>
+                );
+            }
+        }
+        return lst;
+        
     }
     if(getUniqueCategories().length <= 0){
         return(
@@ -92,7 +126,7 @@ function ListView({Dishes,Categories,search,filteredCategories}){
         );
     }else{
     return(
-        <Box>
+        <Box style={{marginTop:10}}>
             {getUniqueCategories().map((category)=>(
             <Accordion>
                 <AccordionSummary
@@ -100,7 +134,7 @@ function ListView({Dishes,Categories,search,filteredCategories}){
                 >
                     <Typography>{category}</Typography>
                 </AccordionSummary>
-                {getDishes(category)}
+                {checkedVeg ? getDishesVeg(category) : getDishes(category)}
             </Accordion>
             ))}
             <Box>

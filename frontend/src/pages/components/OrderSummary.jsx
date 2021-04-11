@@ -1,15 +1,15 @@
 import React from "react";
 import { 
     Badge, Box, Button, 
-    Typography, Grid, Divider, 
-    AppBar, Toolbar, IconButton, 
+    Typography, Grid, Divider,
+    IconButton
 } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { placeOrder } from '../../actions/table';
 import { makeStyles } from '@material-ui/core/styles';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import CloseIcon from '@material-ui/icons/Close';
 import { setLoading } from '../../actions/loading';
 import { Link } from 'react-router-dom';
 
@@ -32,27 +32,30 @@ const useStyles = makeStyles((theme)=>({
         paddingLeft:10,
         paddingTop:10,
         paddingBottom:10,
-        backgroundColor:"#FFD31D"
+        backgroundColor:"#FFD31D5F"
     },
     orderGrid : {
         paddingLeft:10,
-        paddingTop:10,
-        paddingBottom:10
+        paddingTop:5,
+        paddingBottom:5
     },
     bgPrimary : {
         backgroundColor:"#FFD31D",
         fontSize:18,
         marginTop:20,
-        boxShadow:"0px 3px 6px rgba(0,0,0,0.16)"
+        boxShadow:"0px 3px 6px rgba(0,0,0,0.16)",
+        paddingLeft:100,
+        paddingRight:100
     },
     OrderSummaryDetailsScreen:{
-        position:"fixed",
-        top:0,
-        height:"100%",
+        position:'fixed',
+        bottom:0,
+        width:'100%',
         backgroundColor:'white',
-        width:"100%",
         overflow:'hidden',
-        overflowY:'hidden'
+        overflowY:'hidden',
+        borderTop:'1px solid #F0F0F0',
+        paddingBottom:20
     },
     finalPageLink: {
         position:"fixed",
@@ -85,7 +88,10 @@ function OrderSummary({cart,user,placeOrder,orderPlaced,setLoading,table,previou
     }
 
     function getTotalCharges(){
-        const Charges = user.Taxes;
+        var Charges = [];
+        if(user.Taxes !== null || user.Taxes !== undefined){
+           Charges = user.Taxes; 
+        }
         if(Charges.length > 0){
             var totalCharges = 0.0;
             const SubTotal = getSubtotal();
@@ -176,33 +182,30 @@ function OrderSummary({cart,user,placeOrder,orderPlaced,setLoading,table,previou
                 </Box>
                 { getSubtotal() > 0 &&
                 
-                <Box>
-                    <Button onClick={handleOrderSubmit} className={classes.bgPrimary}
-                    fullWidth>Place Order</Button>
+                <Box display='flex' flexDirection='row' justifyContent='center' alignContent='center'>
+                    <Button onClick={handleOrderSubmit} className={classes.bgPrimary}>Place Order</Button>
                 </Box>
                 }
             </Box>
         );
     }
 
-    return(
-        <Box>
-            
-            {
-                toggle ?
+    if(toggle){
+        return(
             <Box className={classes.OrderSummaryDetailsScreen}>
-                <AppBar position="static" style={{backgroundColor:"white"}}>
-                    <Toolbar>
-                        <IconButton edge="start" onClick={closeToggle}>
-                            <ArrowBackIosIcon style={{color:"black"}}/>
-                        </IconButton>
-                        <Typography variant="h6" style={{color:'black'}}>Order Summary</Typography>
-                    </Toolbar>
-                </AppBar>
+
+                <Box display='flex' flexDirection='row'>
+                    <IconButton onClick={closeToggle}>
+                        <CloseIcon style={{color:'black'}}/>
+                    </IconButton>
+                    <Typography variant="h6" style={{color:'black',marginTop:8}}>Order Summary</Typography>
+                </Box>
                 
                 {bodyOfSummary()}
             </Box>
-            :
+        );
+    }else{
+        return(
             <Box>
                 {
                     (table.length > 0 || previousOrders.length > 0) &&
@@ -231,11 +234,8 @@ function OrderSummary({cart,user,placeOrder,orderPlaced,setLoading,table,previou
                     </Badge>
                 </Button>
             </Box>
-            
-            }
-        </Box>
-        
-    );
+        );
+    }
 }
 
 OrderSummary.propTypes = {

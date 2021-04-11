@@ -13,6 +13,7 @@ function SearchBar(props){
         validate,
         placeholder,
         name,
+        style
       } = props;
 
     return(
@@ -21,6 +22,7 @@ function SearchBar(props){
                 id={id}
                 name={name}
                 type={type}
+                style={style}
                 value={value}
                 validate={validate}
                 onChange={onChange}

@@ -46,7 +46,7 @@ export const login = ({id,table,CustomerName}) => async dispatch => {
         const res = await axios.post('/api/restaurant',body,config);
         if(res.data.status === 500){
             
-            dispatch(setAlert("error","Unable to log in",true));
+            dispatch(setAlert("error","Please Check Details and Try Again",true));
 
         }else{
             dispatch({

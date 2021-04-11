@@ -5,8 +5,8 @@ import {
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 
-import Veg from '../../assets/leaf.png';
-import NonVeg from '../../assets/chicken-leg.png';
+import Veg from '../../assets/Veg.svg';
+import NonVeg from '../../assets/NonVeg.svg';
 import Star from '../../assets/star.png';
 import RedChilly from '../../assets/redchilly.png';
 import MediumSpicy from '../../assets/mediumchilly.png';
@@ -48,74 +48,89 @@ function DishComponent(props){
     return(
         <Box>
             <Grid container>
-                <Grid item xs={7} sm={7}>
-                    <Box flexDirection="row" display="flex">
-                    <Box>
-                    {   props.tags !== null && 
-                        props.tags.includes("Veg") ?
-                        <Chip variant="outlined" size="small" label="Veg" avatar={<Avatar src={Veg}/>} style={{borderColor:"#00FF00"}}/>
-                        :
-                        props.tags !== null &&
-                        props.tags.includes("Non Veg") &&
-                        <Chip variant="outlined" size="small" label="Non Veg" avatar={<Avatar src={NonVeg}/>} style={{borderColor:"rgb(255,90,53)"}}/>
-                    }
-                    </Box>
-                    <Box>
-                        {   
-                            props.tags !== null &&
-                            props.tags.includes("Must Try") &&
-                            <Chip label="Must Try" size="small" variant="outlined" avatar={<Avatar src={Star}/>}
-                                style={{borderColor:"#FFF"}}
-                            />
-                        }
-                    </Box>
-                    </Box>
-                    <Typography>
-                        {props.name}       
-                    </Typography>
-                    <Box flexDirection="row" display="flex">
+                <Grid item xs={9} sm={9}>
+                    <Box display="flex" flexDirection='row' justifyContent='left'>
                         <Box>
-                        {
-                            props.tags !== null &&
-                            props.tags.includes("Speciality") &&
-                            <Chip label="Speciality" size="small" variant="outlined" style={{borderColor:"#FFD31D"}}/>
-                        }
-                        </Box>
-                        
-                        <Box>
-                        {
-                            props.tags !== null &&
-                            props.tags.includes("Spicy") &&
-                            <Chip label="Spicy" size="small" avatar={<Avatar src={RedChilly}/>} variant="outlined" style={{borderColor:"#FF0000"}}/>
-                        }
+                            {
+                                props.ImageUrl !== null &&
+                                <Avatar src={props.ImageUrl} style={{width:100,height:'auto'}} variant='rounded'/>
+                            }
                         </Box>
                         <Box>
-                        {   
-                            props.tags !== null &&
-                            props.tags.includes("Med. Spicy") &&
-                            <Chip label="Med. Spicy" size="small" variant="outlined"
-                                avatar={<Avatar src={MediumSpicy}/>} style={{borderColor:"#808000"}}
-                            />
-                        }
-                        </Box>
-                        <Box>
-                        {   
-                            props.tags !== null &&
-                            props.tags.includes("Sweet") &&
-                            <Chip label="Sweet" size="small" variant="outlined"
-                                avatar={<Avatar src={Sweet}/>} style={{borderColor:"whitesmoke"}}
-                            />
-                        }
+                            <Box flexDirection="row" display="flex">
+                                <Box>
+                                {   props.tags !== null && 
+                                    props.tags.includes("Veg") ?
+                                    <Avatar src={Veg} variant='square' style={{width:15,height:15}}/>
+                                    :
+                                    props.tags !== null &&
+                                    props.tags.includes("Non Veg") &&
+                                    <Avatar src={NonVeg} variant='square' style={{width:15,height:15}}/>
+                                }
+                                </Box>
+                                <Box>
+                                    {   
+                                        props.tags !== null &&
+                                        props.tags.includes("Must Try") &&
+                                        <Box display='flex' flexDirection='row' style={{marginLeft:10}}>
+                                            <Avatar variant='square' src={Star} style={{width:15,height:15}}/>
+                                            <Typography style={{marginLeft:2,fontSize:12}} className='mFont'>Must Try</Typography>
+                                        </Box>
+                                    }
+                                </Box>
+                            </Box>
+                            <Typography>
+                                {props.name}       
+                            </Typography>
+                            <Box flexDirection="row" display="flex">
+                                <Box>
+                                {
+                                    props.tags !== null &&
+                                    props.tags.includes("Speciality") &&
+                                    <Box>
+                                        <Box style={{border:'1px solid #FFD31D', borderRadius:5, backgroundColor:"#FFF",padding:2,paddingLeft:5,paddingRight:5}}>
+                                            <Typography style={{fontSize:12}} className='mFont'>Speciality</Typography>
+                                        </Box>
+                                    </Box>
+                                }
+                                </Box>
+                                
+                                <Box>
+                                {
+                                    props.tags !== null &&
+                                    props.tags.includes("Spicy") &&
+                                    <Chip label="Spicy" size="small" avatar={<Avatar src={RedChilly}/>} variant="outlined" style={{borderColor:"#FFF"}}/>
+                                }
+                                </Box>
+                                <Box>
+                                {   
+                                    props.tags !== null &&
+                                    props.tags.includes("Med. Spicy") &&
+                                    <Chip label="Med. Spicy" size="small" variant="outlined"
+                                        avatar={<Avatar src={MediumSpicy}/>} style={{borderColor:"#FFF"}}
+                                    />
+                                }
+                                </Box>
+                                <Box>
+                                {   
+                                    props.tags !== null &&
+                                    props.tags.includes("Sweet") &&
+                                    <Chip label="Sweet" size="small" variant="outlined"
+                                        avatar={<Avatar src={Sweet}/>} style={{borderColor:"white"}}
+                                    />
+                                }
+                                </Box>
+                            </Box>
+                            <Typography style={{fontSize:"small"}} color="textSecondary">
+                                {props.desc !== null && props.desc !== undefined && props.desc}
+                            </Typography>
+                            <Typography style={{fontSize:"medium"}}>
+                                <strong>Rs. {props.price}</strong>
+                            </Typography>
                         </Box>
                     </Box>
-                    <Typography style={{fontSize:"small"}} color="textSecondary">
-                        {props.desc !== null && props.desc !== undefined && props.desc}
-                    </Typography>
-                    <Typography style={{fontSize:"medium"}}>
-                        <strong>Rs. {props.price}</strong>
-                    </Typography>
                 </Grid>
-                <Grid item xs={5} sm={5}>
+                <Grid item xs={3} sm={3}>
                 { counter!==0 
                     ? <IconButton onClick={()=>{handleDecrement();}}><RemoveIcon/></IconButton>
                     : <IconButton><RemoveIcon/></IconButton> 

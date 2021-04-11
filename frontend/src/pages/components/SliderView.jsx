@@ -3,7 +3,7 @@ import SwipeableViews from 'react-swipeable-views';
 import PropTypes from 'prop-types';
 import { useTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { Box, Tabs, Tab, Typography } from '@material-ui/core';
+import { Box, Tabs, Tab, Typography, Divider } from '@material-ui/core';
 import DishComponent from './DishComponent';
 import OrderSummary from './OrderSummary';
 
@@ -33,7 +33,7 @@ TabPanel.propTypes = {
     value: PropTypes.any.isRequired,
 };
 
-function SliderView({Dishes,Categories,search,filteredCategories}){
+function SliderView({Dishes,Categories,search,filteredCategories,checkedVeg}){
 
     const [value, setValue] = React.useState(0);
     const [orderCart,setCart] = React.useState([]);
@@ -91,7 +91,7 @@ function SliderView({Dishes,Categories,search,filteredCategories}){
             return filteredCategories;
         }
     }
-    
+
     function allTabs(){
         const lst = [];
         const UniqueCategories = getUniqueCategories();
@@ -102,23 +102,59 @@ function SliderView({Dishes,Categories,search,filteredCategories}){
         return lst;
     }
 
+    function supportVeg(category){
+        const lst = [];
+        for(var i = 0 ; i< Dishes.length ; i++){
+
+            if(
+                Dishes[i].tags[0].includes("Veg") &&
+                Dishes[i].Category === category && 
+                Dishes[i].DishName.indexOf(search) > -1
+                ){
+                lst.push(
+                    <Box>
+                        <DishComponent
+                            name = {Dishes[i].DishName}
+                            price = {Dishes[i].Price}
+                            tags = {Dishes[i].tags[0]}
+                            ImageUrl={Dishes[i].ImageUrl ? Dishes[i].ImageUrl : null}
+                            desc = {Dishes[i].Description}
+                            handleAddFunc = {handleAddFunc}
+                            id={i}
+                            cart={orderCart}
+                        />
+                        <Divider style={{marginBottom:10}}/>
+                    </Box>
+                    
+                );
+            }
+        }
+        return lst;
+    }
+
     function support(category){
         
         const lst = [];
         for(var i = 0 ; i< Dishes.length ; i++){
-            if(Dishes[i].Category === category){
-                Dishes[i].DishName.indexOf(search) > -1 &&
-                lst.push(
 
-                    <DishComponent
-                        name = {Dishes[i].DishName}
-                        price = {Dishes[i].Price}
-                        tags = {Dishes[i].tags}
-                        desc = {Dishes[i].Description}
-                        handleAddFunc = {handleAddFunc}
-                        id={i}
-                        cart={orderCart}
-                    />
+            if(
+                Dishes[i].Category === category && 
+                Dishes[i].DishName.indexOf(search) > -1
+                ){
+                lst.push(
+                    <Box>
+                        <DishComponent
+                            name = {Dishes[i].DishName}
+                            price = {Dishes[i].Price}
+                            tags = {Dishes[i].tags[0]}
+                            ImageUrl={Dishes[i].ImageUrl ? Dishes[i].ImageUrl : null}
+                            desc = {Dishes[i].Description}
+                            handleAddFunc = {handleAddFunc}
+                            id={i}
+                            cart={orderCart}
+                        />
+                        <Divider style={{marginBottom:10}}/>
+                    </Box>
                     
                 );
             }
@@ -135,7 +171,7 @@ function SliderView({Dishes,Categories,search,filteredCategories}){
                 value={value} 
                 index={i} 
                 dir={theme.direction}
-                > {support(UniqueCategories[i])}
+                > {checkedVeg ? supportVeg(UniqueCategories[i]) : support(UniqueCategories[i])}
             </TabPanel>
             );
         }

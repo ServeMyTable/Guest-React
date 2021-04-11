@@ -10,6 +10,8 @@ import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 import FinalPage from './pages/FinalPage';
 import Check from './pages/Check';
+import Token from './pages/Token';
+import Parcel from './pages/Parcel';
 
 if(localStorage.token){
     setAuthToken(localStorage.token);
@@ -38,6 +40,8 @@ function App() {
                     <Switch>
                         <Route exact path="/" component={Home}/>
                         <Route exact path="/check" component={Check}/>
+                        <Route exact path="/token" component={Token}/>
+                        <Route exact path="/takeaway" component={Parcel}/>
                         <PrivateRoute exact path="/restaurant" component={Restaurant}/>
                         <PrivateRoute exact path="/Checkout" component={FinalPage}/>
                     </Switch>

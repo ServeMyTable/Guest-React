@@ -38,6 +38,7 @@ function Home({auth,login,errorHandler,loading}){
     }
     function handleScan(data){
         if(data){
+
             const mData = (data.split("?")[1]).split("&");
             const finalData = {
                 id : mData[0].split("=")[1],

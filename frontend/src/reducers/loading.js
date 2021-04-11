@@ -4,7 +4,7 @@ const initialState = false;
 
 export default function loading(state=initialState,action){
     
-    const {type,payload} = action;
+    const {type} = action;
 
     switch (type) {
 

@@ -5,11 +5,18 @@ import errorHandler from './errorHandler';
 import orderPlaced from './orderPlaced';
 import previousOrders from "./PreviousOrders";
 import loading from './loading';
+import token from './token';
+import parcel from './parcel';
+import tokenList from './tokenList';
+
 export default combineReducers({
     auth,
     table,
+    token,
+    tokenList,
     errorHandler,
     orderPlaced,
     previousOrders,
-    loading
+    loading,
+    parcel
 });
