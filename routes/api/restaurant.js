@@ -86,6 +86,30 @@ router.post('/', async (req,res)=>{
     
 });
 
+router.post('/details',async (req,res)=>{
 
+    try {
+        
+        const RestaurantID = req.body.Phone;
+        const user = await User.findOne({Phone:RestaurantID});
+        if(user === null){
+            res.status(200).send('User does not exists.');
+        }else{
+            const basicDetails = {
+                UserName : user.username,
+                RestaurantName : user.RestaurantName,
+                RestaurantImage : user.ImageUrl,
+                RestaurantAddress : user.Location,
+                Phone : user.Phone
+            };
+            res.status(200).send(basicDetails);
+        }
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error');
+    }
+
+});
 
 module.exports = router;

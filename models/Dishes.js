@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const DishSchema = new Schema({
 
+      DishID : {
+            type : String,
+            required : true,
+      },
       DishName : {
             type : String,
             required : true
@@ -12,6 +16,9 @@ const DishSchema = new Schema({
       Price : {
             type : Number,
             required : true
+      },
+      FileName : {
+            type : String
       },
       ImageUrl :{
             type : String
@@ -26,7 +33,7 @@ const DishSchema = new Schema({
       Available : {
             type : Boolean,
             default : true
-      }
+      },
 
 },{
       timestamps:true

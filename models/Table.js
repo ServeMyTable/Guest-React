@@ -28,6 +28,10 @@ const SingleSchema = new Schema({
             type : String,
       },
       Orders : [OrderSchema],
+      OrderType:{
+            type: String,
+            default : 'Local'
+      },
       TotalBill : {
             type : String
       },
@@ -43,6 +47,11 @@ const SingleSchema = new Schema({
       CustomerName : {
             type : String
       },
+      CustomerAddress : {
+            type : String,
+            default : ''
+      },
+      CustomerPhone : { type: String },
       PaymentMode : { type : String },
       PaymentStatus : {type : Boolean, default:false},
       PaymentID : {type: String , default : ""},

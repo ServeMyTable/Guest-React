@@ -14,18 +14,11 @@ const userSchema = new Schema({
       gstin:{ type : String, default : "" },
       pan : { type : String, default : "" },
       Phone:{ type : Number },
-      AccountName : { type : String },
-      AccountNumber : { type : Number },
-      IFSCcode : { type : String },
-      AccountType : { type : String },
-      BussinessType :{ type : String },
       ImageUrl:{ type : String },
       FileName:{ type : String },
-      Accountverified:{ type : Boolean, default : false },
-      Documentverified:{ type : Boolean, default : false },
-      ActivateAccount : { type : Boolean , default : false},
-      OtherBankDetails : {type: String},
-      RazAccountId : {type: String},
+      OtherBankDetails : { type: String },
+      RazAccountId : { type: String },
+      UPIID : { type: String },
       Taxes :{ type: Array }
 
 },{
